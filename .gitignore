@@ -1,0 +1,34 @@
+# --- Segurança ---
+.env
+secret.json
+
+# --- Python / Backend ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+
+# --- Dados da Shaula (Locais) ---
+data/images/
+data/sessions.jsonl
+data/usuarios.json
+data/active_context.json
+*.log
+sonhos.json
+interesses.json
+proposito_atual.json
+humor_status.json
+
+# --- Node / React ---
+node_modules/
+.pnp
+.pnp.js
+dist/
+.eslintcache
+
+# --- Rust / Tauri ---
+src-tauri/target/
+target/
+*.pdb

@@ -1,0 +1,41 @@
+{
+  "Bateria 9v": {
+    "quantidade": 2
+  },
+  "Pilha AA": {
+    "quantidade": 14
+  },
+  "Placa Arduino Uno R3": {
+    "quantidade": 16
+  },
+  "Placa Arduino Mega 2560": {
+    "quantidade": 7
+  },
+  "Protoboard": {
+    "quantidade": 9
+  },
+  "Sensor de temperatura": {
+    "quantidade": 9
+  },
+  "Sensor Ultrassonico": {
+    "quantidade": 9
+  },
+  "LED Vermelho": {
+    "quantidade": 13
+  },
+  "LED Verde": {
+    "quantidade": 54
+  },
+  "Display LCD": {
+    "quantidade": 9
+  },
+  "Cabo USB": {
+    "quantidade": 18
+  },
+  "Resistor 330 Ohms": {
+    "quantidade": 135
+  },
+  "Sensor de Movimento PIR": {
+    "quantidade": 9
+  }
+}

@@ -1,0 +1,163 @@
+[
+    {
+        "id": "18070d5f-ce70-41c6-abcc-4905cca55c21",
+        "tipo": "Ideia",
+        "conteudo": "Usar sensor de presença no drone V88",
+        "origem": "mobile",
+        "projeto_associado": "v88",
+        "status": "resolvido",
+        "created_at": "2026-01-04T15:26:46.658256Z",
+        "last_accessed": "2026-01-04T18:44:36.828459+00:00"
+    },
+    {
+        "id": "833ba4d3-a182-4ace-b6de-21bccfb48759",
+        "tipo": "Ideia",
+        "conteudo": "Usar sensor de presença no drone V88",
+        "origem": "mobile",
+        "projeto_associado": "v88",
+        "status": "resolvido",
+        "created_at": "2026-01-04T15:26:49.562602Z",
+        "last_accessed": "2026-01-04T18:44:36.430224+00:00"
+    },
+    {
+        "id": "fbda0fef-e1ae-48db-be0b-ca7fd5837ab6",
+        "tipo": "Ideia",
+        "conteudo": "restee",
+        "origem": "mobile",
+        "projeto_associado": "shaula_orb",
+        "status": "resolvido",
+        "created_at": "2026-01-04T18:09:13.413750Z",
+        "last_accessed": "2026-01-04T18:43:34.770391+00:00"
+    },
+    {
+        "id": "75a0f8df-86bc-42ec-9d46-3c6194e87ce4",
+        "tipo": "Duvida",
+        "conteudo": "voce funciona?",
+        "origem": "mobile",
+        "projeto_associado": "shaula_orb",
+        "status": "resolvido",
+        "created_at": "2026-01-04T18:09:35.281764Z",
+        "last_accessed": "2026-01-04T23:38:50.591651+00:00"
+    },
+    {
+        "id": "d4d058c8-24ee-4735-ae17-598baa9c6022",
+        "tipo": "Tarefa",
+        "conteudo": "testando prioridade alta do v88",
+        "origem": "mobile",
+        "projeto_associado": "v88",
+        "status": "resolvido",
+        "confianca": "Alta",
+        "created_at": "2026-01-04T18:44:31.799378Z",
+        "last_accessed": "2026-01-04T18:45:04.996947+00:00"
+    },
+    {
+        "id": "5ea08db0-89ee-44dc-93f1-936f05f46902",
+        "tipo": "Tarefa",
+        "conteudo": "teste de penalidade",
+        "origem": "mobile",
+        "projeto_associado": "teste",
+        "status": "resolvido",
+        "confianca": "Alta",
+        "created_at": "2025-12-31T14:30:00.000000+00:00",
+        "last_accessed": "2026-01-04T23:39:08.826417+00:00"
+    },
+    {
+        "id": "5ea1654f-c146-44cb-bc79-0110db64f40c",
+        "tipo": "Ideia",
+        "conteudo": "teste 2",
+        "origem": "mobile",
+        "projeto_associado": "teste",
+        "status": "resolvido",
+        "confianca": "Alta",
+        "created_at": "2025-12-31T22:05:22.916536Z",
+        "last_accessed": "2026-01-04T23:39:11.887619+00:00"
+    },
+    {
+        "id": "25adbe04-ba8b-4e17-94bc-08768b2de9d2",
+        "tipo": "Tarefa",
+        "conteudo": "preciso lavar louça",
+        "origem": "mobile",
+        "projeto_associado": "Casa",
+        "status": "resolvido",
+        "confianca": "Alta",
+        "created_at": "2025-12-31T22:06:28.437951Z",
+        "last_accessed": "2026-01-04T23:35:37.769746+00:00"
+    },
+    {
+        "id": "c591374c-50df-42e7-9898-4548e391e267",
+        "tipo": "Tarefa",
+        "conteudo": "não lavei o banheiro ainda",
+        "origem": "mobile",
+        "projeto_associado": "Casa",
+        "status": "resolvido",
+        "confianca": "Alta",
+        "created_at": "2026-01-01T22:06:48.161789Z",
+        "last_accessed": "2026-01-04T23:35:33.210975+00:00"
+    },
+    {
+        "id": "035a456a-88ca-49a9-8763-d05ed1628c30",
+        "tipo": "Tarefa",
+        "conteudo": "areia da gata",
+        "origem": "mobile",
+        "projeto_associado": "Casa",
+        "status": "resolvido",
+        "confianca": "Media",
+        "created_at": "2026-01-01T22:07:07.148880Z",
+        "last_accessed": "2026-01-04T23:35:32.723215+00:00"
+    },
+    {
+        "id": "630bf549-628f-4595-b0c4-a596f44f83e6",
+        "tipo": "Tarefa",
+        "conteudo": "lavad louça",
+        "origem": "mobile",
+        "projeto_associado": "Casa",
+        "status": "ativo",
+        "confianca": "Media",
+        "created_at": "2026-01-05T03:28:40.855181Z",
+        "last_accessed": "2026-01-05T18:01:05.698536+00:00"
+    },
+    {
+        "id": "e00baf26-90d8-43dd-931a-76fe3e2fa769",
+        "tipo": "Tarefa",
+        "conteudo": "estudar para prova ",
+        "origem": "mobile",
+        "projeto_associado": "FPF",
+        "status": "ativo",
+        "confianca": "Alta",
+        "created_at": "2026-01-05T03:44:41.633817Z",
+        "last_accessed": "2026-01-05T18:01:05.698536+00:00"
+    },
+    {
+        "id": "eeb170a5-eac7-4360-b507-c0a422c537f6",
+        "tipo": "Tarefa",
+        "conteudo": "geo aniversario ",
+        "origem": "mobile",
+        "projeto_associado": "Amigos",
+        "status": "ativo",
+        "confianca": "Alta",
+        "created_at": "2026-01-05T09:07:29.923101Z",
+        "last_accessed": "2026-01-05T18:01:05.698536+00:00"
+    },
+    {
+        "id": "d1917bb6-a6c2-4d04-adb2-83a26217a5fc",
+        "tipo": "Tarefa",
+        "conteudo": "Terminar trabalho artigo",
+        "origem": "mobile",
+        "projeto_associado": "FPF",
+        "status": "ativo",
+        "confianca": "Alta",
+        "created_at": "2026-01-05T10:02:24.549012Z",
+        "last_accessed": "2026-01-05T18:01:05.698536+00:00"
+    },
+    {
+        "id": "56da787c-c6e3-4a98-8d30-1a3667a2d954",
+        "tipo": "Tarefa",
+        "conteudo": "lavar roupa",
+        "origem": "mobile",
+        "projeto_associado": "Casa",
+        "status": "ativo",
+        "confianca": "Alta",
+        "created_at": "2026-01-05T10:06:07.129277Z",
+        "last_accessed": "2026-01-05T18:01:05.698536+00:00"
+    }
+]
