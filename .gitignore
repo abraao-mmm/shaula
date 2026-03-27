@@ -20,6 +20,8 @@ sonhos.json
 interesses.json
 proposito_atual.json
 humor_status.json
+inventario.json
+memoria_log.json
 
 # --- Node / React ---
 node_modules/

@@ -6,16 +6,26 @@ from pathlib import Path
 import json
 import uuid
 
+# --- Importações do Ecossistema Shaula ---
+# (Certifique-se de que o app.py consiga importar o agente e o gerenciador)
+from agente import AgenteReflexivo
+from gerenciador_usuarios import GerenciadorDeUsuarios
+from rich.console import Console
+
+console = Console()
+
 APP_DIR = Path(__file__).parent
 DATA_DIR = APP_DIR / "data"
 DATA_DIR.mkdir(exist_ok=True)
 
+# Pasta específica para as imagens
+IMAGES_DIR = DATA_DIR / "images"
+IMAGES_DIR.mkdir(exist_ok=True)
+
 SESSIONS_FILE = DATA_DIR / "sessions.jsonl"
 
+app = FastAPI(title="Shaula System Backend", version="0.2.0")
 
-app = FastAPI(title="Shaula Backend", version="0.1.0")
-
-# CORS (pra facilitar se você testar via browser)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -24,9 +34,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# 1. SERVIR IMAGENS ESTÁTICAS (Conserta as imagens quebradas no Modo Histórico)
+app.mount("/images", StaticFiles(directory=IMAGES_DIR), name="images")
+
+# Inicia o gerenciador de usuários globalmente
+gerenciador_usuarios = GerenciadorDeUsuarios()
+
 @app.get("/health")
 def health():
-    return {"ok": True, "ts": datetime.utcnow().isoformat()}
+    return {"ok": True, "ts": datetime.utcnow().isoformat(), "mode": "cognitive_kernel"}
 
 @app.post("/analyze")
 async def analyze(
@@ -36,37 +52,60 @@ async def analyze(
     session_id = str(uuid.uuid4())
     ts = datetime.utcnow().isoformat()
 
-    # salva imagem da sessão (opcional)
-    img_dir = DATA_DIR / "images"
-    img_dir.mkdir(exist_ok=True)
-    img_path = img_dir / f"{session_id}_{image.filename}"
-
+    # Salva imagem da sessão
+    img_filename = f"{session_id}_{image.filename}"
+    img_path = IMAGES_DIR / img_filename
     content = await image.read()
     img_path.write_bytes(content)
 
-    # RESPOSTA FAKE por enquanto (depois a gente pluga sua Shaula)
-    answer = (
-        "✅ Recebi a imagem.\n"
-        f"- filename: {image.filename}\n"
-        f"- bytes: {len(content)}\n"
-        f"- prompt: {prompt.strip() or '(vazio)'}\n\n"
-        "Próximo passo: integrar com o motor da Shaula para análise real."
-    )
+    # 2. CONEXÃO COM O COGNITIVE KERNEL
+    try:
+        # Pega ou cria o seu usuário
+        usuario = gerenciador_usuarios.obter_ou_criar_usuario_atual("Abraão")
+        
+        # Instancia o Agente (que agora tem o Router e o StateConsolidator embutidos)
+        agente = AgenteReflexivo(usuario_atual=usuario, gerenciador=gerenciador_usuarios, console_log=console)
+        
+        # Roda o processamento cognitivo real!
+        resposta_complexa, tipo_fluxo = agente.processar_entrada_do_utilizador(prompt)
+        
+        # Limpa a resposta se ela vier no formato JSON de ferramenta
+        try:
+            resp_json = json.loads(resposta_complexa)
+            answer_text = resp_json.get("parametros", {}).get("texto_final", resposta_complexa)
+        except:
+            answer_text = resposta_complexa
+
+    except Exception as e:
+        answer_text = f"🧠 Falha Cognitiva (Erro no Kernel): {str(e)}"
+        tipo_fluxo = "ERRO"
 
     record = {
         "session_id": session_id,
         "created_at": ts,
         "prompt": prompt,
-        "image_filename": image.filename,
+        "image_filename": img_filename,
         "image_saved_path": str(img_path),
-        "answer": answer,
+        "answer": answer_text,
+        "fluxo_utilizado": tipo_fluxo
     }
 
-    # salva sessão em jsonl
+    # Salva sessão em jsonl
     with SESSIONS_FILE.open("a", encoding="utf-8") as f:
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
     return record
+
+# 3. ENDPOINT DO HEARTBEAT (Consciência Passiva da Janela)
+@app.post("/sync_context")
+async def sync_context(data: dict):
+    titulo_janela = data.get("title", "Desconhecido")
+    contexto_file = DATA_DIR / "active_context.json"
+    
+    with open(contexto_file, "w", encoding="utf-8") as f:
+        json.dump({"janela_ativa": titulo_janela, "ts": datetime.utcnow().isoformat()}, f)
+        
+    return {"status": "synced"}
 
 @app.get("/sessions")
 def list_sessions(limit: int = 50):
