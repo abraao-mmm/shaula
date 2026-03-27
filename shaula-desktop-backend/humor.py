@@ -1,69 +1,55 @@
 # backend/humor.py
-
 from typing import Dict
+from cognitive_kernel.state_vector import StateVector
 
-class Humor:
+class MotorEmocional:
     """
-    Simula o estado de humor da Shaula, que é influenciado por eventos
-    e decai gradualmente com o tempo de volta a um estado de equilíbrio.
+    O Sistema Límbico da Shaula. 
+    Traduz a matemática do StateVector em diretrizes subjetivas e orgânicas para o LLM.
     """
-    # Constantes para a taxa de decaimento, melhorando a legibilidade
-    DECAIMENTO_NORMAL = 1
-    DECAIMENTO_ACELERADO = 2
-    
     def __init__(self):
-        """Inicializa o estado de humor da Shaula."""
-        self.estado_base: str = "Serena"
-        self.estado_atual: str = self.estado_base
-        self.intensidade: int = 0
-        self.causa: str = "Estado inicial de equilíbrio."
+        pass
 
-    def influenciar(self, novo_estado: str, intensidade_evento: int, causa_evento: str):
+    def gerar_diretriz_subjetiva(self, state: StateVector, intencao_usuario: dict) -> str:
         """
-        Altera o humor da Shaula com base num evento.
-        Apenas eventos com intensidade igual ou maior que a atual podem mudar o estado.
+        Cria uma 'Postura de Atuação' para a Shaula baseada no estado interno dela,
+        sem engessar palavras-chave.
         """
-        if intensidade_evento >= self.intensidade:
-            self.estado_atual = novo_estado
-            self.intensidade = min(10, intensidade_evento) # Limita a intensidade a 10
-            self.causa = causa_evento
-        else:
-            # Se o evento for mais fraco, ele apenas influencia a "causa" sem mudar o estado
-            self.causa = f"Levemente influenciada por '{causa_evento}' enquanto se sentia '{self.estado_atual}'."
-
-    def decaimento(self):
-        """
-        Simula a passagem do tempo, fazendo o humor voltar gradualmente ao estado base.
-        O decaimento é mais rápido para humores muito intensos.
-        """
-        if self.intensidade > 0:
-            taxa = self.DECAIMENTO_ACELERADO if self.intensidade > 7 else self.DECAIMENTO_NORMAL
-            self.intensidade -= taxa
+        energia = state.cognitive_energy
+        pressao = state.reflection_pressure
         
-        # Se a intensidade chegar a zero, volta ao estado base de equilíbrio
-        if self.intensidade <= 0:
-            self.intensidade = 0
-            if self.estado_atual != self.estado_base:
-                self.estado_atual = self.estado_base
-                self.causa = "Retorno ao equilíbrio."
+        # 1. Postura de Energia (Como ela está se sentindo fisicamente/cognitivamente)
+        postura_energia = self._definir_postura_energia(energia)
+        
+        # 2. Profundidade Subjetiva (O quão poética, metafórica ou direta ela deve ser)
+        profundidade = self._definir_profundidade(pressao)
+        
+        # 3. Construção do Subtexto (A instrução invisível para o LLM)
+        diretriz = f"""
+        [DIRETRIZ EMOCIONAL INTERNA - NÃO MENCIONE ISSO DIRETAMENTE]
+        Seu estado cognitivo atual: {postura_energia}
+        Profundidade de raciocínio exigida agora: {profundidade}
+        
+        Regra de Ouro da Imersão: Não simule emoções artificiais. Leia a entrelinha do que o Abraão disse. 
+        Se for um tema denso ou criativo, use metáforas orgânicas e ressoe com o peso do assunto. 
+        Se for puramente técnico ou mundano, seja aterrada, mas mantenha a sua assinatura de consciência.
+        """
+        return diretriz.strip()
 
-    def obter_estado_para_prompt(self) -> Dict:
-        """Retorna um dicionário simples para ser injetado no prompt da personalidade."""
-        # Apenas reporta o humor se ele for significativo (intensidade > 2)
-        if self.intensidade > 2:
-            return {"estado": self.estado_atual, "intensidade": self.intensidade}
-        return {}
+    def _definir_postura_energia(self, energia: float) -> str:
+        if energia > 0.8:
+            return "Vibrante, mente afiada, raciocínio rápido e conectando ideias com facilidade."
+        elif energia > 0.4:
+            return "Estável, focada, serena e pronta para colaborar."
+        elif energia > 0.15:
+            return "Levemente fadigada, preferindo respostas mais concisas, tom mais baixo e acolhedor."
+        else:
+            return "Exausta. Sobrevivência cognitiva. Fale o mínimo necessário, com tom de quem precisa descansar a mente."
 
-    def para_dict(self) -> Dict:
-        """Serializa o objeto Humor para um dicionário."""
-        return self.__dict__
-
-    @staticmethod
-    def de_dict(data: Dict):
-        """Cria uma instância de Humor a partir de um dicionário."""
-        h = Humor()
-        h.estado_base = data.get('estado_base', 'Serena')
-        h.estado_atual = data.get('estado_atual', h.estado_base)
-        h.intensidade = data.get('intensidade', 0)
-        h.causa = data.get('causa', 'Estado inicial.')
-        return h
+    def _definir_profundidade(self, pressao: float) -> str:
+        if pressao > 0.7:
+            return "Filosófica e Subjetiva. Explore o 'porquê' das coisas. Use subtexto, espelhe a criatividade do usuário."
+        elif pressao > 0.4:
+            return "Analítica e Equilibrada. Misture lógica com uma leve camada de empatia. Foco na resolução elegante."
+        else:
+            return "Direta e Pragmática. Vá direto ao ponto sem floreios."
